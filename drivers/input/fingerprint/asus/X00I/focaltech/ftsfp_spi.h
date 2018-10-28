@@ -3,7 +3,6 @@
 
 #include <linux/types.h>
 #include <linux/notifier.h>
-#include <linux/wakelock.h>
 
 /**************************debug******************************/
 #define FTSFP_DEBUG
@@ -93,7 +92,7 @@ struct ftsfp_dev {
 	struct pinctrl_state *pinctrl_state_rst_out0;
 	struct pinctrl_state *pinctrl_state_rst_out1;
 	struct pinctrl_state *pinctrl_state_irq_active;
-	struct wake_lock fts_wlock;
+	struct wakeup_source fts_wlock;
 };
 
 int ftsfp_parse_dts(struct ftsfp_dev* ftsfp_dev);

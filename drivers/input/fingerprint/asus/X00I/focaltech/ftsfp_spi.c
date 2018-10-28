@@ -479,7 +479,7 @@ static irqreturn_t ftsfp_irq (int irq, void *handle)
 		sched_set_boost(1);
 	}
 
-	wake_lock_timeout(&ftsfp_dev->fts_wlock, msecs_to_jiffies(1000));
+	__pm_wakeup_event(&ftsfp_dev->fts_wlock, msecs_to_jiffies(1000));
     kobject_uevent_env(&ftsfp_dev->spi->dev.kobj, KOBJ_CHANGE, envp);
 #endif
 
@@ -922,7 +922,7 @@ static int ftsfp_probe (
 
     }
 
-    wake_lock_init(&ftsfp_dev->fts_wlock, WAKE_LOCK_SUSPEND, "focalfp_irq_wakelock");
+    wakeup_source_init(&ftsfp_dev->fts_wlock, "focalfp_irq_wakelock");
 
     return status;
 
@@ -974,7 +974,7 @@ static int ftsfp_remove (
 
     input_free_device (ftsfp_dev->input);
 
-	wake_lock_destroy(&ftsfp_dev->fts_wlock);
+	wakeup_source_trash(&ftsfp_dev->fts_wlock);
 
     /* prevent new opens */
     mutex_lock (&device_list_lock);
