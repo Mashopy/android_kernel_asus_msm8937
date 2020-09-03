@@ -26,7 +26,9 @@
 		fstab {
 			compatible = "android,fstab";
 			vendor {
-				status = "disable";
+				dev = "/dev/block/platform/soc/7824900.sdhci/by-name/cache";
+				type = "squashfs";
+				fsmgr_flags = "wait";
 			};
 		};
 	};
