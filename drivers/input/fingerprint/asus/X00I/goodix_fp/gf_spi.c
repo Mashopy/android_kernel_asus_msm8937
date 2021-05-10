@@ -693,7 +693,9 @@ static int gf_probe(struct platform_device *pdev)
 	gf_dev->device_available =  0;
 	gf_dev->fb_black  =  0;
 	gf_dev->irq_enabled = 0;
+#ifdef ENABLE_PINCTRL
 	gf_dev->fingerprint_pinctrl = NULL;
+#endif
 
 /*
 	if (gf_parse_dts(gf_dev))

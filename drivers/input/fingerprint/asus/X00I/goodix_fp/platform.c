@@ -39,6 +39,7 @@ static int gf3208_request_named_gpio(struct gf_dev *gf_dev,const char *label, in
 	return 0;
 }
 
+#ifdef ENABLE_PINCTRL
 static int select_pin_ctl(struct gf_dev *gf_dev, const char *name)
 {
 	size_t i;
@@ -62,13 +63,15 @@ static int select_pin_ctl(struct gf_dev *gf_dev, const char *name)
 exit:
 	return rc;
 }
-
+#endif
 
 /*GPIO pins reference.*/
 int gf_parse_dts(struct gf_dev* gf_dev)
 {
  	int rc = 0;
+#ifdef ENABLE_PINCTRL
  	int i = 0;
+#endif
     	pr_warn("--------gf_parse_dts start.--------\n");
     
     /*get reset resource*/
@@ -88,7 +91,7 @@ int gf_parse_dts(struct gf_dev* gf_dev)
 		return -1;
     	}
     
-
+#ifdef ENABLE_PINCTRL
     	gf_dev->fingerprint_pinctrl = devm_pinctrl_get(&gf_dev->spi->dev);
    	for (i = 0; i < ARRAY_SIZE(gf_dev->pinctrl_state); i++) {
 		const char *n = pctl_names[i];
@@ -111,10 +114,12 @@ int gf_parse_dts(struct gf_dev* gf_dev)
 
 	
 //rc = pinctrl_select_state(gf_dev->fingerprint_pinctrl,pctl_names[1]);
-	
+#endif
     	pr_warn("--------gf_parse_dts end---OK.--------\n");
 
+#ifdef ENABLE_PINCTRL
 exit:
+#endif
 	 return rc;
 	 
     	//return 0;
@@ -137,13 +142,15 @@ void gf_cleanup(struct gf_dev	* gf_dev)
         devm_gpio_free(&gf_dev->spi->dev,gf_dev->reset_gpio);
         gf_dbg("remove reset_gpio success\n");
     }
-	
+
+#ifdef ENABLE_PINCTRL
 	if (gf_dev->fingerprint_pinctrl != NULL){
   	  	devm_pinctrl_put(gf_dev->fingerprint_pinctrl);
 		gf_dev->fingerprint_pinctrl=NULL;
 		
 		 gf_dbg("gx  fingerprint_pinctrl  release success\n");
 	}
+#endif
 
 }
 
@@ -174,7 +181,8 @@ static int hw_reset(struct  gf_dev *gf_dev)
 {
 	int irq_gpio;
 	struct device *dev = &gf_dev->spi->dev;
-	
+
+#ifdef ENABLE_PINCTRL
 	int rc = select_pin_ctl(gf_dev, "goodixfp_reset_active");
 	if (rc)
 		goto exit;	
@@ -189,10 +197,15 @@ static int hw_reset(struct  gf_dev *gf_dev)
 	if (rc)
 		goto exit;
 	 mdelay(3);
+#else
+	int rc = 0;
+#endif
 
 	irq_gpio = gpio_get_value(gf_dev->irq_gpio);
 	dev_info(dev, "IRQ after reset %d\n", irq_gpio);
+#ifdef ENABLE_PINCTRL
 exit:
+#endif
 	return rc;
 }
 
