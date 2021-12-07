@@ -128,27 +128,11 @@
 };
 
 &pmi_haptic {
-	/delete-property/ interrupts;
-	/delete-property/ interrupt-names;
-	/delete-property/ vcc_pon-supply;
-	/delete-property/ qcom,wave-shape;
-	/delete-property/ qcom,sc-deb-cycles;
-	/delete-property/ qcom,int-pwm-freq-khz;
-	/delete-property/ qcom,en-brake;
-	/delete-property/ qcom,brake-pattern;
-	/delete-property/ qcom,use-play-irq;
-	/delete-property/ qcom,use-sc-irq;
-	/delete-property/ qcom,wave-samples;
-	/delete-property/ qcom,wave-rep-cnt;
-	/delete-property/ qcom,wave-samp-rep-cnt;
-	/delete-property/ qcom,lra-auto-res-mode;
-	/delete-property/ qcom,lra-high-z;
-	/delete-property/ qcom,lra-res-cal-period;
-	/delete-property/ qcom,correct-lra-drive-freq;
-	/delete-property/ qcom,misc-trim-error-rc19p2-clk-reg-present;
-
-	status = "ok";
-	qcom,actuator-type = <1>;
-	qcom,wave-play-rate-us = <5263>;
-	qcom,vmax-mv = <3000>;
+  qcom,vmax-mv = <3000>;
+  wf_0 { qcom,wf-vmax-mv = <3000>; };
+  wf_1 { qcom,wf-vmax-mv = <3000>; };
+  wf_2 { qcom,wf-vmax-mv = <3000>; };
+  wf_3 { qcom,wf-vmax-mv = <3000>; };
+  wf_4 { qcom,wf-vmax-mv = <3000>; };
+  wf_5 { qcom,wf-vmax-mv = <3000>; };
 };
