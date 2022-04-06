@@ -59,7 +59,7 @@
 
 #define GTP_TOOL_FINGER 2
 
-#define MAX_KEY_NUMS 4
+#define MAX_KEY_NUMS 2
 #define GTP_CONFIG_MAX_LENGTH 240
 #define GTP_ADDR_LENGTH       2
 
@@ -256,17 +256,16 @@ struct goodix_ts_data {
 
 /* STEP_3(optional): Specify your special config info if needed */
 #define GTP_DEFAULT_MAX_X	 720    /* default coordinate max values */
-#define GTP_DEFAULT_MAX_Y	 1080
+#define GTP_DEFAULT_MAX_Y	 1280
 #define GTP_DEFAULT_MAX_WIDTH	 1024
 #define GTP_DEFAULT_MAX_PRESSURE 1024
 #define GTP_DEFAULT_INT_TRIGGER	 1 /* 1 rising, 2 falling */
-#define GTP_MAX_TOUCH_ID	 16
+#define GTP_MAX_TOUCH_ID	 10
 
 /* STEP_4(optional): If keys are available and reported as keys,
  * config your key info here
  */
-#define GTP_KEY_TAB {KEY_MENU, KEY_HOME, KEY_BACK, KEY_HOMEPAGE, \
-	KEY_F1, KEY_F2, KEY_F3}
+#define GTP_KEY_TAB {KEY_BACK, KEY_MENU}
 
 /**************************PART3:OTHER define*******************************/
 #define GTP_DRIVER_VERSION	"V2.8.0.2<2017/12/14>"
